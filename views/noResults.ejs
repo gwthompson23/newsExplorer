@@ -1,0 +1,26 @@
+<%- include("partials/header") %>
+
+
+	<header class="jumbotron">
+		<div class="container">
+			<h1 id="header">
+				Welcome to Your News Feed
+			</h1>
+			<p>
+				View the Top Articles in Sports, Entertainment, and Technology
+			</p>
+		</div>
+    </header>
+
+    <div class="container noResults">
+        <h2 class="noResults">Sorry! There were no results for your search.</h2>
+        <form class="noResults" id="noResultsForm" method="POST" action="/newSearch">
+            <input class="hide" type="text" id="keySearch" name="keySearch">
+            <input type="text" class="hide" id="category" name="category" value="<%=category%>">
+            <button class="btn btn-primary noResults">
+                Return Home
+            </button>
+        </form>
+    </div>
+    
+<%- include("partials/footer") %>

@@ -1,0 +1,131 @@
+<%- include("partials/header") %>
+
+
+<!--Creating title-->
+	<header class="jumbotron">
+		<div class="container">
+			<h1 id="header">
+				Welcome to Your News Feed
+			</h1>
+			<p>
+				View the Top Articles in Sports, Entertainment, and Technology
+			</p>
+		</div>
+	</header>
+	
+<!--Creating Options for category, keywords, and pages-->
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<form method="POST" action="/changeCategory">
+				<h4 class="label">
+					Category: 
+				</h4>
+				<select id="div-toggle" name="categorySelect">
+					<option <% if(category=="sports"){ %>
+							selected="selected"
+							<% } %>
+								value="sports" data-show=".sports">Sports</option>
+					<option <% if(category=="entertainment"){ %>
+							selected="selected"
+							<% } %>
+							value="entertainment" data-show=".entertainment">Entertainment</option>
+					<option <% if(category=="technology"){ %>
+							selected="selected"
+							<% } %>
+							value="technology" data-show=".technology">Technology</option>
+				</select>
+				<button class="btn btn-primary">
+					Go
+				</button>
+			</form>
+		</div>
+		<div class="col-sm-4">
+			<form method="POST" action="/newSearch">
+				<h4 class="label">Keyword: </h4>
+				<input type="text" id="keySearch" name="keySearch">
+				<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+				<button class="btn btn-primary">
+					Go
+				</button>
+			</form>
+			<% if(searchTerm != ""){ %>
+				<form class="clear" method="POST" action="/newSearch">
+					<input class="hide" type="text" id="keySearch" name="keySearch">
+					<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+					<button class="btn btn-danger">
+						Clear Search
+					</button>
+				</form>
+			<% } %>
+		</div>
+		<div class="col-sm-4">
+			<% if(page > 1){ %>
+			<form method="POST" action="/prevPage">
+				<input type="text" class="hide" id="pageNum" name="pageNum" value="<%=page%>">
+				<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+				<input type="text" class="hide" id="searchTerm" name="searchTerm" value="<%=searchTerm%>">
+				<button class="pageBtn btn btn-secondary">
+					Prev Page
+				</button>
+			</form>
+			<% } %>
+			<% if(page < 5){ %>
+			<form method="POST" action="/nextPage">
+				<input type="text" class="hide" id="pageNum" name="pageNum" value="<%=page%>">
+				<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+				<input type="text" class="hide" id="searchTerm" name="searchTerm" value="<%=searchTerm%>">
+				<button class="pageBtn btn btn-secondary">
+					Next Page
+				</button>
+			</form>
+			<% } %>
+		</div>
+	</div>
+	
+<!--Creating actual cards for news articles-->
+	<div class="card-columns">
+		<% articles.forEach(function(article){ %>
+			<a href="<%=article.url%>" class="card-link" target="_blank">
+				<div class="card">
+					<% if(article.urlToImage != null){ %>
+					<img src="<%= article.urlToImage %>" class="card-img-top">
+					<% } %>
+					<div class="card-body">
+						<h5 class="card-title"><%= article.title %></h5>
+						<h6 class="card-subtitle mb-2 text-muted">
+							<%= article.source.name + " - " + stringToDate(article.publishedAt) %>
+						</h6>
+						<p class="card-text"><%= article.description %></p>
+					</div>
+				</div>
+			</a>
+		<% }) %>
+	</div>
+
+<!--Creating page buttons at the bottom of the page for easy navigation-->
+	<div class="col-sm-12 bottomDiv">
+		<% if(page > 1){ %>
+		<form class="bottomForm" method="POST" action="/prevPage">
+			<input type="text" class="hide" id="pageNum" name="pageNum" value="<%=page%>">
+			<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+			<input type="text" class="hide" id="searchTerm" name="searchTerm" value="<%=searchTerm%>">
+			<button class="pageBtn bottomBtn btn btn-secondary">
+				Prev Page
+			</button>
+		</form>
+		<% } %>
+		<% if(page < 5){ %>
+		<form class="bottomForm" method="POST" action="/nextPage">
+			<input type="text" class="hide" id="pageNum" name="pageNum" value="<%=page%>">
+			<input type="text" class="hide" id="category" name="category" value="<%=category%>">
+			<input type="text" class="hide" id="searchTerm" name="searchTerm" value="<%=searchTerm%>">
+			<button class="pageBtn bottomBtn btn btn-secondary">
+				Next Page
+			</button>
+		</form>
+		<% } %>
+	</div>
+</div>
+
+<%- include("partials/footer") %>
