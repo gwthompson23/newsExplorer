@@ -114,8 +114,9 @@ app.post("/nextPage", function(req,res){
 });
 
 // Tell Express to listen for requests (start server)
-app.listen(3000, () => {
-	console.log("Sever listening on port 3000")
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+	console.log("Sever listening on port " + port)
 });
 
 
