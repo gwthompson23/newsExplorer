@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 var bodyParser = require("body-parser");
 var NewsAPI = require("newsapi");
-var newsapi = new NewsAPI('feaffd76e8ff410080b0624c4fcd20d3');
+var newsapi = new NewsAPI('78b9d599c4f94f8fa3afb1a5458928d6');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
