@@ -21,6 +21,7 @@ async function getArticles(category, page, searchTerm){
 	await newsapi.v2.topHeadlines({
 		category: category,
 		page: page,
+		country: "us",
 		q: searchTerm
 	}).then(response => {
 		//console.log(response.articles[0]);
