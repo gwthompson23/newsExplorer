@@ -1,1 +1,1 @@
-To start the server, from the main directory run "node app.js"
+App that incorporates the NewsAPI to provide a platform for users to view popular news stories
